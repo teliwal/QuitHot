@@ -14,6 +14,8 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.content.Context;
 
+import java.util.Random;
+import java.util.Timer;
 import java.util.TimerTask;
 
 import fr.quithot.com.quithot.activity.MainActivity;
@@ -103,8 +105,26 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
 
         thread.setRunning(true);
         thread.start();
+        Timer timer = new Timer();
+        timer.schedule(new MyTimerTask(),5000);
+
     }
 
+    class MyTimerTask extends TimerTask {
+        @Override
+        public void run() {
+            Random r = new Random();
+            boolean res = r.nextBoolean();
+            if(res){
+                int t = r.nextInt(3);
+                if(t==0){
+                    lancerArmure();
+                } else if(t == 1){
+                    lancerArret();
+                } else lancerVie();
+            }
+        }
+    }
     @Override
     protected void onDraw(Canvas canvas) {
 
@@ -239,16 +259,19 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
     @Override
     public void notifierShake() {
         System.out.println("SHAKE SHAKE");
-        balleFactory.pause();
-        isPaused = true;
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                balleFactory.redemarrer();
-                isPaused = false;
-            }
-        },2000);
+        if(perso.getNbUseStop() > 0){
+            balleFactory.pause();
+            isPaused = true;
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    balleFactory.redemarrer();
+                    isPaused = false;
+                }
+            },2000);
+            perso.decrementerArret();
+        }
     }
 
     private void lancerVie(){

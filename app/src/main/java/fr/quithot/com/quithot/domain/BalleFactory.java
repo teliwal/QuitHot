@@ -133,7 +133,6 @@ public class BalleFactory {
                 negX = true;
                 negY = true;
                 break;
-
         }
 
         dirX = rand.nextInt(maxVitesse);
