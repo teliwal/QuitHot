@@ -16,6 +16,8 @@ import fr.quithot.com.quithot.domain.Balle;
 import fr.quithot.com.quithot.domain.BalleFactory;
 import fr.quithot.com.quithot.domain.Personnage;
 import fr.quithot.com.quithot.domain.TiltType;
+import fr.quithot.com.quithot.sensors.LuminosityConsumer;
+import fr.quithot.com.quithot.sensors.LuminositySensor;
 import fr.quithot.com.quithot.sensors.OrientationConsumer;
 import fr.quithot.com.quithot.sensors.OrientationListener;
 import fr.quithot.com.quithot.sensors.ScreenConsumer;
@@ -26,17 +28,18 @@ import fr.quithot.com.quithot.sensors.ScreenListener;
  * Created by mathieukostiuk on 16/03/2018.
  */
 
-public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callback, OrientationConsumer {
+public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callback, OrientationConsumer,ScreenConsumer,LuminosityConsumer {
 
     private GameThread thread;
     private Personnage perso;
     private BalleFactory balleFactory;
     private boolean screenSet = false;
     private OrientationListener orientationListener = new OrientationListener(this);
+    private LuminositySensor luminosityListerner = new LuminositySensor(this);
     private SensorManager managerTilt;
     private SensorManager managerShake;
     private ScreenListener screenListener;
-    private SensorManager manager;
+    private SensorManager managerLimunosite;
 
     public GameSurfaceView(Context context) {
         super(context);
@@ -46,7 +49,8 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
 
         perso = new Personnage(this.getContext(), 600.0f, 500.0f);
         balleFactory = new BalleFactory(this.getContext(),perso);
-
+        screenListener = new ScreenListener(this,this);
+        setOnTouchListener(screenListener);
     }
 
 
@@ -55,8 +59,6 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
 
         getHolder().addCallback(this);
         thread = new GameThread(this);
-        this.screenListener = new ScreenListener(this);
-        System.err.println("Création instance surface");
     }
 
     @Override
@@ -70,6 +72,11 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
         managerShake = (SensorManager) getContext().getSystemService(Context.SENSOR_SERVICE);
         managerShake.registerListener(orientationListener,
                 managerShake.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),
+                SensorManager.SENSOR_DELAY_NORMAL);
+
+        managerLimunosite = (SensorManager) getContext().getSystemService(Context.SENSOR_SERVICE);
+        managerLimunosite.registerListener(luminosityListerner,
+                managerLimunosite.getDefaultSensor(Sensor.TYPE_LIGHT),
                 SensorManager.SENSOR_DELAY_NORMAL);
 
         thread=new GameThread(this);
@@ -179,5 +186,16 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
 
     public void setBalleFactory(BalleFactory balleFactory) {
         this.balleFactory = balleFactory;
+    }
+
+    @Override
+    public void notifierBonus(Balle balle) {
+        //handle bonus
+    }
+
+    @Override
+    public void notifierLuminosity() {
+        //handle luminosite
+        System.out.println("NOIR");
     }
 }

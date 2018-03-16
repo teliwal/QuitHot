@@ -13,7 +13,7 @@ public class LuminositySensor implements SensorEventListener{
     LuminosityConsumer consumer;
     int currentLuminosity = -1;
 
-    LuminositySensor(LuminosityConsumer consumer){
+    public LuminositySensor(LuminosityConsumer consumer){
         this.consumer = consumer;
     }
 
