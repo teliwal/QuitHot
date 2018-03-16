@@ -115,9 +115,12 @@ public class Balle {
         this.radius = radius;
     }
 
-    public void mouvementBalle(double pvitesseX, double pvitesseY){
-        this.x += pvitesseX;
-        this.y += pvitesseY;
+    public void mouvementBalle(){
+        System.err.println(x + " " + y + " " + vitesseX + " " + vitesseY);
+        this.x += vitesseX;
+        this.y += vitesseY;
+        System.err.println(x + " " + y + " " + vitesseX + " " + vitesseY);
+
     }
 
     public double getVitesseX() {
@@ -154,6 +157,19 @@ public class Balle {
 
     public void dessiner(Canvas canvas){
         canvas.drawCircle(x,y,this.radius,this.paint);
+    }
+
+    public boolean isOutOfRange(float screenHeight, float screenWidth) {
+        if (x < 0.0f)
+            return true;
+        if (y < 0.0f)
+            return true;
+        if (x > screenWidth)
+            return true;
+        if (y > screenHeight)
+            return true;
+
+        return false;
     }
 }
 
