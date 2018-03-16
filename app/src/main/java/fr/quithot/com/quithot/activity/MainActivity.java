@@ -1,5 +1,6 @@
 package fr.quithot.com.quithot.activity;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -15,12 +16,14 @@ import android.view.SurfaceView;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.Window;
+import android.view.WindowManager;
 
 import fr.quithot.com.quithot.R;
 import fr.quithot.com.quithot.domain.Parametres;
 import fr.quithot.com.quithot.views.GameSurfaceView;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends Activity {
 
     private GameSurfaceView view;
     private static Context context;
@@ -31,6 +34,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         context = this;
         SharedPreferences preferences = getSharedPreferences(Parametres.DIFFICULTE, MODE_PRIVATE);
         diff = preferences.getString(Parametres.DIFFICULTE, "DIFFICULTE");
