@@ -53,7 +53,7 @@ public class MainActivity extends Activity {
     }
 
     public static void gameOver(int score) {
-        AlertDialog.Builder builder1 = new AlertDialog.Builder(context);g
+        AlertDialog.Builder builder1 = new AlertDialog.Builder(context);
         builder1.setMessage("GAME OVER\n Votre score est :"+ score +"\n RETRY?");
         builder1.setCancelable(true);
         final EditText input = new EditText(context);

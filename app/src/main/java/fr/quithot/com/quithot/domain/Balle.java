@@ -5,6 +5,8 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Point;
+import android.os.VibrationEffect;
+import android.os.Vibrator;
 
 /**
  * Created by telly on 16/03/18.
@@ -41,6 +43,8 @@ public class Balle {
                 rebondir();
             }
         }
+        Vibrator vib = (Vibrator)context.getSystemService(Context.VIBRATOR_SERVICE);
+        vib.vibrate(VibrationEffect.createOneShot(200,VibrationEffect.DEFAULT_AMPLITUDE));
     }
 
     private void rebondir(){
