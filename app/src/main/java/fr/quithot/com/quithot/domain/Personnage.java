@@ -22,21 +22,83 @@ public class Personnage {
     private float dirX, dirY;
     private Bitmap image;
     private int nbVie;
+    private int nbUseArmure;
+    private int nbUseStop;
+    private boolean armure;
 
-    public Personnage(){}
+
+    private Context contex;
+    public Personnage(){
+
+    }
 
     public Personnage(Bitmap image,float x,float y){
+        nbVie = 5;
         this.image = image;
         this.x = x;
         this.y = y;
     }
 
     public Personnage(Context context, float x, float y){
-
+        this.contex = context;
         Bitmap bm = BitmapFactory.decodeResource(context.getResources(), R.drawable.player);
+        nbVie = 5;
+        nbUseArmure = 3;
+        nbUseStop = 3;
         this.image = bm;
         this.x = x;
         this.y = y;
+    }
+
+    public void mettreArmure(){
+        if(nbUseArmure > 0) {
+            Bitmap bm = BitmapFactory.decodeResource(contex.getResources(), R.drawable.player_armor);
+            image = bm;
+            armure = true;
+            nbUseArmure --;
+        }
+    }
+
+    public void enleverArmure(){
+        Bitmap bm = BitmapFactory.decodeResource(contex.getResources(), R.drawable.player);
+        image = bm;
+        armure = false;
+    }
+
+    public void incrementerVie(){
+        nbVie++;
+}
+
+
+    public void incrementerNbArmure(){
+        nbUseArmure ++;
+    }
+
+    public void incrementerNbArret(){
+        nbUseStop ++;
+    }
+
+    public void  decrementerArret(){
+        nbUseStop--;
+    }
+    public int getNbUseStop() {
+        return nbUseStop;
+    }
+
+    public int getNbUseArmure() {
+        return nbUseArmure;
+    }
+
+    public void decrementerVie(){
+        nbVie--;
+    }
+
+    public boolean isArmure() {
+        return armure;
+    }
+
+    public void setArmure(boolean armure) {
+        this.armure = armure;
     }
 
     public void setX(float x) {
@@ -92,5 +154,12 @@ public class Personnage {
         paint.setFilterBitmap(true);
         paint.setDither(true);
 
-        canvas.drawBitmap(image, x, y, paint);    }
+        canvas.drawBitmap(image, x, y, paint);
+    }
+
+    public int getNbVie() {
+        return nbVie;
+    }
+
+
 }

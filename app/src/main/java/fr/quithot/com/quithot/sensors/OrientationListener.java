@@ -51,7 +51,6 @@ public class OrientationListener implements SensorEventListener {
     }
 
     private boolean isTilt(float[] tab){
-        System.out.println(tab);
         float x = tab[0];
         float y = tab[1];
         if (x > 0.5f && y > 0.5f) {
@@ -67,7 +66,7 @@ public class OrientationListener implements SensorEventListener {
             return true;
         }
         if(x < -0.5f && y < -0.5f){
-            tiltType = TiltType.HAUT_DROITE;
+            tiltType = TiltType.BAS_GAUCHE;
             return true;
         }
         if (y > 0.5f) {
@@ -86,6 +85,10 @@ public class OrientationListener implements SensorEventListener {
             tiltType = TiltType.GAUCHE;
             return true;
         }
+        if (x > -0.5f && x < 0.5f && y > -0.5f && y < 0.5f) {
+            tiltType = TiltType.CENTRE;
+            return true;
+        }
         return  false;
     }
 
@@ -102,6 +105,7 @@ public class OrientationListener implements SensorEventListener {
             final long now = System.currentTimeMillis();
             // ignore shake events too close to each other (500ms)
             if (mShakeTimestamp + SHAKE_SLOP_TIME_MS > now) {
+                mShakeCount++;
                 return false;
             }
             // reset the shake count after 3 seconds of no shakes
@@ -111,6 +115,6 @@ public class OrientationListener implements SensorEventListener {
             mShakeTimestamp = now;
             mShakeCount++;
         }
-        return  mShakeCount > 5;
+        return  mShakeCount >= 3;
     }
 }

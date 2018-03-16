@@ -1,6 +1,7 @@
 package fr.quithot.com.quithot.activity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -18,10 +19,15 @@ import java.util.Collections;
 import java.util.List;
 
 import fr.quithot.com.quithot.R;
+
 import fr.quithot.com.quithot.domain.Score;
 import fr.quithot.com.quithot.domain.ScoreAdaptateur;
 
 import static java.lang.Math.min;
+
+import fr.quithot.com.quithot.domain.Difficulte;
+import fr.quithot.com.quithot.domain.Parametres;
+
 
 public class GameActivity extends AppCompatActivity {
 
@@ -30,6 +36,7 @@ public class GameActivity extends AppCompatActivity {
     Button bouttonDifficile;
     Button bouttonScore;
     Button bouttonAide;
+    SharedPreferences preferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,10 +60,12 @@ public class GameActivity extends AppCompatActivity {
                 activiteScore();
             }
         });
+        preferences = getSharedPreferences(Parametres.DIFFICULTE, MODE_PRIVATE);
     }
 
     private void activiteFacile(){
         Intent intent = new Intent(GameActivity.this, MainActivity.class);
+        preferences.edit().putString(Parametres.DIFFICULTE, "FACILE").apply();
         startActivity(intent);
     }
 
@@ -64,4 +73,17 @@ public class GameActivity extends AppCompatActivity {
         Intent intent = new Intent(GameActivity.this, ScoreActivity.class);
         startActivity(intent);
     }
+
+    public void activateMoyen(View view) {
+        Intent intent = new Intent(GameActivity.this, MainActivity.class);
+        preferences.edit().putString(Parametres.DIFFICULTE, "MOYEN").apply();
+        startActivity(intent);
+    }
+
+    public void activateDifficile(View view) {
+        Intent intent = new Intent(GameActivity.this, MainActivity.class);
+        preferences.edit().putString(Parametres.DIFFICULTE, "DIFFICILE").apply();
+        startActivity(intent);
+    }
+
 }
