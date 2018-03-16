@@ -47,7 +47,7 @@ public class Personnage {
     }
 
     public void mettreArmure(){
-        Bitmap bm = BitmapFactory.decodeResource(contex.getResources(), R.drawable.player);
+        Bitmap bm = BitmapFactory.decodeResource(contex.getResources(), R.drawable.player_armor);
         image = bm;
         armure = true;
     }
