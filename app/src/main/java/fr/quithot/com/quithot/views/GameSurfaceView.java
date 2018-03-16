@@ -9,6 +9,8 @@ import android.hardware.Sensor;
 import android.hardware.SensorManager;
 import android.os.Build;
 import android.os.Handler;
+import android.os.VibrationEffect;
+import android.os.Vibrator;
 import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
 import android.view.SurfaceHolder;
@@ -257,6 +259,8 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
     public void gameOver() {
         thread.pause();
         handler2.post(runnable2);
+        Vibrator vib = (Vibrator)getContext().getSystemService(Context.VIBRATOR_SERVICE);
+        vib.vibrate(VibrationEffect.createOneShot(1000,VibrationEffect.DEFAULT_AMPLITUDE));
     }
 
     @Override

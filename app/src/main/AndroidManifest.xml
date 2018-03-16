@@ -3,6 +3,7 @@
     package="fr.quithot.com.quithot"
     >
 
+    <uses-permission android:name="android.permission.VIBRATE" />
     <application
         android:allowBackup="true"
         android:icon="@drawable/icon"
