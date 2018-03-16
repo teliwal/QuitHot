@@ -25,7 +25,7 @@ public class OrientationListener implements SensorEventListener {
     OrientationConsumer consumer;
     private final float[] mAccelerometerReading = new float[3];
 
-    OrientationListener(OrientationConsumer consumer){
+    public OrientationListener(OrientationConsumer consumer){
         this.consumer = consumer;
     }
 
@@ -51,6 +51,7 @@ public class OrientationListener implements SensorEventListener {
     }
 
     private boolean isTilt(float[] tab){
+        System.out.println(tab);
         float x = tab[0];
         float y = tab[1];
         if(x > 0.5f){

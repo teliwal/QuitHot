@@ -43,7 +43,7 @@ public class BalleFactory {
 
         int cpt = listeBalle.size();
 
-        while (cpt < 50) {
+        while (cpt < 1) {
 
             int posInit = rand.nextInt(8);
 
@@ -128,12 +128,15 @@ public class BalleFactory {
     @RequiresApi(api = Build.VERSION_CODES.N)
     public void moveAll() {
 
+        List<Balle> temp = new ArrayList<>();
+
         for (Balle b : listeBalle) {
             b.mouvementBalle();
+            if (b.isOutOfRange(screenHeight, screenWidth))
+                temp.add(b);
         }
-        System.err.println(listeBalle.size());
+        System.err.println(listeBalle.size());g
 
-        List<Balle> temp = listeBalle.stream().filter(b -> b.isOutOfRange(screenHeight, screenWidth)).collect(Collectors.<Balle>toList());
         listeBalle.removeAll(temp);
     }
 
