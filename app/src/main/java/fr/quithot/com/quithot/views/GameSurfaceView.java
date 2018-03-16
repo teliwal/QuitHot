@@ -40,7 +40,6 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
         perso = new Personnage(this.getContext(), 600.0f, 500.0f);
         balleFactory = new BalleFactory(this.getContext(),perso);
 
-        System.err.println("Création instance surface");
     }
 
 
@@ -50,8 +49,6 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
         getHolder().addCallback(this);
         thread = new GameThread(this);
 
-
-        System.err.println("Création instance surface");
     }
 
     @Override
@@ -66,8 +63,6 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
 
         thread.setRunning(true);
         thread.start();
-
-        System.err.println("Lancement Thread dessin");
     }
 
     @Override
@@ -80,7 +75,6 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
         balleFactory.drawAll(canvas);
         perso.seDeplacer(canvas.getHeight(), getWidth());
         perso.dessiner(canvas);
-        System.err.println("Draw");
     }
 
     @Override

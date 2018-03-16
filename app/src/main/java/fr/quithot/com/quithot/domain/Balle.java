@@ -118,11 +118,11 @@ public class Balle {
     }
 
     public void mouvementBalle(){
-        System.err.println(x + " " + y + " " + vitesseX + " " + vitesseY);
-        this.x += vitesseX;
-        this.y += vitesseY;
+        if(!pause) {
+            this.x += vitesseX;
+            this.y += vitesseY;
+        }
         collision();
-        System.err.println(x + " " + y + " " + vitesseX + " " + vitesseY);
 
     }
 

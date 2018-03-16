@@ -133,8 +133,6 @@ public class BalleFactory {
             if (b.isOutOfRange(screenHeight, screenWidth))
                 temp.add(b);
         }
-        System.err.println(listeBalle.size());
-
         listeBalle.removeAll(temp);
     }
 
