@@ -51,7 +51,6 @@ public class OrientationListener implements SensorEventListener {
     }
 
     private boolean isTilt(float[] tab){
-        System.out.println(tab);
         float x = tab[0];
         float y = tab[1];
         if (x > 0.5f && y > 0.5f) {

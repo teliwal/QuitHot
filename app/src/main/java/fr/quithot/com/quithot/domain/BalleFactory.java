@@ -2,6 +2,8 @@ package fr.quithot.com.quithot.domain;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,10 +20,11 @@ public class BalleFactory {
     private float screenHeight, screenWidth;
     Random rand = new Random();
     private Context context;
+    private Personnage personnage;
 
-    public BalleFactory(Context c) {
+    public BalleFactory(Context c,Personnage personnage) {
         listeBalle = new ArrayList<>();
-
+        this.personnage = personnage;
         context = c;
     }
 
@@ -117,12 +120,13 @@ public class BalleFactory {
             if (negY)
                 dirY = -dirY;
 
-            listeBalle.add(new Balle(x, y, 50, dirX, dirY, false, context));
+            listeBalle.add(new Balle(x, y, 50, dirX, dirY, false, context,personnage));
 
             cpt++;
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     public void moveAll() {
 
         List<Balle> temp = new ArrayList<>();
@@ -132,8 +136,6 @@ public class BalleFactory {
             if (b.isOutOfRange(screenHeight, screenWidth))
                 temp.add(b);
         }
-        System.err.println(listeBalle.size());
-
         listeBalle.removeAll(temp);
     }
 
