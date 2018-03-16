@@ -6,7 +6,22 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.GenericTypeIndicator;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 import fr.quithot.com.quithot.R;
+import fr.quithot.com.quithot.domain.Score;
+import fr.quithot.com.quithot.domain.ScoreAdaptateur;
+
+import static java.lang.Math.min;
 
 public class GameActivity extends AppCompatActivity {
 
@@ -28,13 +43,25 @@ public class GameActivity extends AppCompatActivity {
         bouttonFacile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                activateFacile();
+                activiteFacile();
+            }
+        });
+
+        bouttonScore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                activiteScore();
             }
         });
     }
 
-    private void activateFacile(){
+    private void activiteFacile(){
         Intent intent = new Intent(GameActivity.this, MainActivity.class);
+        startActivity(intent);
+    }
+
+    private void activiteScore(){
+        Intent intent = new Intent(GameActivity.this, ScoreActivity.class);
         startActivity(intent);
     }
 }
