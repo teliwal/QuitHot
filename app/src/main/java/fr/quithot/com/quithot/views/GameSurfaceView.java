@@ -24,6 +24,7 @@ import java.util.TimerTask;
 import fr.quithot.com.quithot.R;
 import fr.quithot.com.quithot.activity.MainActivity;
 import fr.quithot.com.quithot.domain.Balle;
+import fr.quithot.com.quithot.domain.BalleBonus;
 import fr.quithot.com.quithot.domain.BalleFactory;
 import fr.quithot.com.quithot.domain.Difficulte;
 import fr.quithot.com.quithot.domain.BonusType;
@@ -110,7 +111,7 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
         thread.setRunning(true);
         thread.start();
         Timer timer = new Timer();
-        timer.schedule(new MyTimerTask(),5000);
+        timer.schedule(new MyTimerTask(),1000,5000);
 
     }
 
@@ -151,7 +152,8 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
         textPaint.setTextSize(48f);
         canvas.drawText(String.valueOf(perso.getNbVie()), getWidth() - 100, 100, textPaint);
         canvas.drawText(String.valueOf(perso.getNbUseArmure()), getWidth() - 300, 100, textPaint);
-        canvas.drawText(String.valueOf(score), getWidth() - 500, 100, textPaint);
+        canvas.drawText(String.valueOf(perso.getNbUseStop()), getWidth() - 500, 100, textPaint);
+        canvas.drawText(String.valueOf(score), getWidth() - 800, 100, textPaint);
 
 
         Paint paint = new Paint();
@@ -161,7 +163,8 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
 
         canvas.drawBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.heart), getWidth() - 190, 50, paint);
         canvas.drawBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.shield), getWidth() - 390, 50, paint);
-        canvas.drawBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.cup), getWidth() - 620, 50, paint);
+        canvas.drawBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.clock), getWidth() - 620, 50, paint);
+        canvas.drawBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.cup), getWidth() - 900, 50, paint);
 
 
 
@@ -259,13 +262,21 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
     public void gameOver() {
         thread.pause();
         handler2.post(runnable2);
-        Vibrator vib = (Vibrator)getContext().getSystemService(Context.VIBRATOR_SERVICE);
-        vib.vibrate(VibrationEffect.createOneShot(1000,VibrationEffect.DEFAULT_AMPLITUDE));
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            Vibrator vib = (Vibrator) getContext().getSystemService(Context.VIBRATOR_SERVICE);
+            vib.vibrate(VibrationEffect.createOneShot(1000, VibrationEffect.DEFAULT_AMPLITUDE));
+        }
     }
 
     @Override
     public void notifierBonus(Balle balle) {
-        //handle bonus
+        BalleBonus b = (BalleBonus) balle;
+        if(b.getBonusType() == BonusType.VIE){
+            perso.incrementerVie();
+        } else if(b.getBonusType()==BonusType.ARMURE){
+            perso.incrementerNbArmure();
+        } else perso.decrementerArret();
+        b.disparaitre();
     }
 
     @Override
