@@ -33,6 +33,8 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
     private BalleFactory balleFactory;
     private boolean screenSet = false;
     private OrientationListener orientationListener = new OrientationListener(this);
+    private SensorManager managerTilt;
+    private SensorManager managerShake;
     private ScreenListener screenListener;
     private SensorManager manager;
 
@@ -60,9 +62,14 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
     @Override
     public void surfaceCreated(SurfaceHolder surfaceHolder) {
 
-        manager = (SensorManager) getContext().getSystemService(Context.SENSOR_SERVICE);
-        manager.registerListener(orientationListener,
-                manager.getDefaultSensor(Sensor.TYPE_GYROSCOPE),
+        managerTilt = (SensorManager) getContext().getSystemService(Context.SENSOR_SERVICE);
+        managerTilt.registerListener(orientationListener,
+                managerTilt.getDefaultSensor(Sensor.TYPE_GYROSCOPE),
+                SensorManager.SENSOR_DELAY_NORMAL);
+
+        managerShake = (SensorManager) getContext().getSystemService(Context.SENSOR_SERVICE);
+        managerShake.registerListener(orientationListener,
+                managerShake.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),
                 SensorManager.SENSOR_DELAY_NORMAL);
 
         thread=new GameThread(this);
@@ -121,7 +128,7 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
 
     @Override
     public void notifierShake() {
-
+        System.out.println("SHAKE SHAKE");
     }
 
     @Override
@@ -158,6 +165,10 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
             case HAUT_GAUCHE:
                 perso.setDirX(-25.0f);
                 perso.setDirY(-25.0f);
+                break;
+            case CENTRE:
+                perso.setDirX(0.0f);
+                perso.setDirY(0.0f);
                 break;
         }
     }
