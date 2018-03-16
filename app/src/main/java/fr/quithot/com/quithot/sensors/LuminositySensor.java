@@ -22,7 +22,7 @@ public class LuminositySensor implements SensorEventListener{
         if(sensorEvent.sensor.getType() == Sensor.TYPE_LIGHT){
             if(currentLuminosity != -1){
                 int temp = (int)sensorEvent.values[0];
-                if((currentLuminosity-temp)/100 >= 0.7){
+                if((currentLuminosity-temp)/100 >= 0.95f){
                     consumer.notifierLuminosity();
                 }
             }

@@ -22,6 +22,8 @@ public class Personnage {
     private float dirX, dirY;
     private Bitmap image;
     private int nbVie;
+    private int nbUseArmure;
+    private int nbUseStop;
     private boolean armure;
 
 
@@ -41,21 +43,50 @@ public class Personnage {
         this.contex = context;
         Bitmap bm = BitmapFactory.decodeResource(context.getResources(), R.drawable.player);
         nbVie = 5;
+        nbUseArmure = 3;
+        nbUseStop = 3;
         this.image = bm;
         this.x = x;
         this.y = y;
     }
 
     public void mettreArmure(){
-        Bitmap bm = BitmapFactory.decodeResource(contex.getResources(), R.drawable.player);
-        image = bm;
-        armure = true;
+        if(nbUseArmure > 0) {
+            Bitmap bm = BitmapFactory.decodeResource(contex.getResources(), R.drawable.player_armor);
+            image = bm;
+            armure = true;
+            nbUseArmure --;
+        }
     }
 
     public void enleverArmure(){
         Bitmap bm = BitmapFactory.decodeResource(contex.getResources(), R.drawable.player);
         image = bm;
         armure = false;
+    }
+
+    public void incrementerVie(){
+        nbVie++;
+}
+
+
+    public void incrementerNbArmure(){
+        nbUseArmure ++;
+    }
+
+    public void incrementerNbArret(){
+        nbUseStop ++;
+    }
+
+    public void  decrementerArret(){
+        nbUseStop--;
+    }
+    public int getNbUseStop() {
+        return nbUseStop;
+    }
+
+    public int getNbUseArmure() {
+        return nbUseArmure;
     }
 
     public void decrementerVie(){

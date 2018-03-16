@@ -15,6 +15,8 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.content.Context;
 
+import java.util.Random;
+import java.util.Timer;
 import java.util.TimerTask;
 
 import fr.quithot.com.quithot.R;
@@ -50,7 +52,10 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
     private ScreenListener screenListener;
     private SensorManager managerLimunosite;
 
-    private TimerTask armureTimer;
+    private boolean isPaused;
+
+    private int score;
+
 
     final Handler handler2 = new Handler();
     Runnable runnable2 = new Runnable() {
@@ -102,8 +107,26 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
 
         thread.setRunning(true);
         thread.start();
+        Timer timer = new Timer();
+        timer.schedule(new MyTimerTask(),5000);
+
     }
 
+    class MyTimerTask extends TimerTask {
+        @Override
+        public void run() {
+            Random r = new Random();
+            boolean res = r.nextBoolean();
+            if(res){
+                int t = r.nextInt(3);
+                if(t==0){
+                    lancerArmure();
+                } else if(t == 1){
+                    lancerArret();
+                } else lancerVie();
+            }
+        }
+    }
     @Override
     protected void onDraw(Canvas canvas) {
 
@@ -125,17 +148,24 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
         textPaint.setColor(Color.BLACK);
         textPaint.setTextSize(48f);
         canvas.drawText(String.valueOf(perso.getNbVie()), getWidth() - 100, 100, textPaint);
-        canvas.drawText(String.valueOf(perso.), getWidth() - 100, 100, textPaint);
+        canvas.drawText(String.valueOf(perso.getNbUseArmure()), getWidth() - 300, 100, textPaint);
+        canvas.drawText(String.valueOf(score), getWidth() - 500, 100, textPaint);
+
 
         Paint paint = new Paint();
         paint.setAntiAlias(true);
         paint.setFilterBitmap(true);
         paint.setDither(true);
 
-        canvas.drawBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.heart), getWidth() - 150, 50, paint);
-        canvas.drawBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.shield), getWidth() - 350, 50, paint);
+        canvas.drawBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.heart), getWidth() - 190, 50, paint);
+        canvas.drawBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.shield), getWidth() - 390, 50, paint);
+        canvas.drawBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.cup), getWidth() - 620, 50, paint);
 
 
+
+        if(!isPaused){
+            score++;
+        }
     }
 
     @Override
@@ -250,14 +280,19 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
     @Override
     public void notifierShake() {
         System.out.println("SHAKE SHAKE");
-        balleFactory.pause();
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                balleFactory.redemarrer();
-            }
-        },2000);
+        if(perso.getNbUseStop() > 0){
+            balleFactory.pause();
+            isPaused = true;
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    balleFactory.redemarrer();
+                    isPaused = false;
+                }
+            },2000);
+            perso.decrementerArret();
+        }
     }
 
     private void lancerVie(){
