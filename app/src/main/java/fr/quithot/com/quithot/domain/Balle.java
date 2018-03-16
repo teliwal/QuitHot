@@ -66,7 +66,7 @@ public class Balle {
         float posX = personnage.getX();
         float posY = personnage.getY();
         float distance = (float) Math.sqrt((x-posX) * ((x-posX)) + ((y-posY) * (y-posY)));
-        if(distance < radius+58.f){
+        if(distance < radius+48.f){
             return true;
         }
         return  false;

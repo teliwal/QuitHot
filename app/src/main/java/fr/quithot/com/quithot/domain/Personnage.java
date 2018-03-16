@@ -25,6 +25,7 @@ public class Personnage {
     private boolean armure;
 
 
+    private Context contex;
     public Personnage(){
 
     }
@@ -37,12 +38,24 @@ public class Personnage {
     }
 
     public Personnage(Context context, float x, float y){
-
+        this.contex = context;
         Bitmap bm = BitmapFactory.decodeResource(context.getResources(), R.drawable.player);
         nbVie = 5;
         this.image = bm;
         this.x = x;
         this.y = y;
+    }
+
+    public void mettreArmure(){
+        Bitmap bm = BitmapFactory.decodeResource(contex.getResources(), R.drawable.player);
+        image = bm;
+        armure = true;
+    }
+
+    public void enleverArmure(){
+        Bitmap bm = BitmapFactory.decodeResource(contex.getResources(), R.drawable.player);
+        image = bm;
+        armure = false;
     }
 
     public void decrementerVie(){
