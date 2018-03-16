@@ -147,6 +147,22 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
                 perso.setDirX(-25.0f);
                 perso.setDirY(0.0f);
                 break;
+            case BAS_DROIT:
+                perso.setDirX(25.0f);
+                perso.setDirY(25.0f);
+                break;
+            case BAS_GAUCHE:
+                perso.setDirX(-25.0f);
+                perso.setDirY(25.0f);
+                break;
+            case HAUT_DROITE:
+                perso.setDirX(25.0f);
+                perso.setDirY(-25.0f);
+                break;
+            case HAUT_GAUCHE:
+                perso.setDirX(-25.0f);
+                perso.setDirY(-25.0f);
+                break;
         }
     }
 
