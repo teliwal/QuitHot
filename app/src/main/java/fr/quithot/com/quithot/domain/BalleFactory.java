@@ -41,7 +41,7 @@ public class BalleFactory {
 
         int cpt = listeBalle.size();
 
-        while (cpt < 50) {
+        while (cpt < 1) {
 
             int posInit = rand.nextInt(8);
 

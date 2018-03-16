@@ -3,6 +3,8 @@ package fr.quithot.com.quithot.views;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.hardware.Sensor;
+import android.hardware.SensorManager;
 import android.util.AttributeSet;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -10,18 +12,24 @@ import android.content.Context;
 
 import fr.quithot.com.quithot.domain.Balle;
 import fr.quithot.com.quithot.domain.BalleFactory;
+import fr.quithot.com.quithot.domain.Personnage;
+import fr.quithot.com.quithot.domain.TiltType;
+import fr.quithot.com.quithot.sensors.OrientationConsumer;
+import fr.quithot.com.quithot.sensors.OrientationListener;
 
 
 /**
  * Created by mathieukostiuk on 16/03/2018.
  */
 
-public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callback {
+public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callback, OrientationConsumer {
 
     private GameThread thread;
-    private Balle balle;
+    private Personnage perso;
     private BalleFactory balleFactory;
     private boolean screenSet = false;
+    private OrientationListener orientationListener = new OrientationListener(this);
+    private SensorManager manager;
 
     public GameSurfaceView(Context context) {
         super(context);
@@ -29,6 +37,7 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
         getHolder().addCallback(this);
         thread = new GameThread(this);
 
+        perso = new Personnage(this.getContext(), 600.0f, 500.0f);
         balleFactory = new BalleFactory(this.getContext());
 
         System.err.println("Création instance surface");
@@ -41,7 +50,6 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
         getHolder().addCallback(this);
         thread = new GameThread(this);
 
-        balle = new Balle(0.0f, 0.0f, 50, 1, 1, false, this.getContext());
 
         System.err.println("Création instance surface");
     }
@@ -49,6 +57,10 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
     @Override
     public void surfaceCreated(SurfaceHolder surfaceHolder) {
 
+        manager = (SensorManager) getContext().getSystemService(Context.SENSOR_SERVICE);
+        manager.registerListener(orientationListener,
+                manager.getDefaultSensor(Sensor.TYPE_GYROSCOPE),
+                SensorManager.SENSOR_DELAY_NORMAL);
 
         thread=new GameThread(this);
 
@@ -66,6 +78,8 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
 
         // on dessine la balle
         balleFactory.drawAll(canvas);
+        perso.seDeplacer(canvas.getHeight(), getWidth());
+        perso.dessiner(canvas);
         System.err.println("Draw");
     }
 
@@ -104,4 +118,30 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
     }
 
 
+    @Override
+    public void notifierShake() {
+
+    }
+
+    @Override
+    public void notifierTilt(TiltType type) {
+        switch (type) {
+            case BAS:
+                perso.setDirX(0.0f);
+                perso.setDirY(25.0f);
+                break;
+            case HAUT:
+                perso.setDirX(0.0f);
+                perso.setDirY(-25.0f);
+                break;
+            case DROITE:
+                perso.setDirX(25.0f);
+                perso.setDirY(.0f);
+                break;
+            case GAUCHE:
+                perso.setDirX(-25.0f);
+                perso.setDirY(0.0f);
+                break;
+        }
+    }
 }

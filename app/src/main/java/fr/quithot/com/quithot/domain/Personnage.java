@@ -1,7 +1,15 @@
 package fr.quithot.com.quithot.domain;
 
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Paint;
 import android.graphics.Point;
+import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
+
+import fr.quithot.com.quithot.R;
 
 /**
  * Created by telly on 16/03/18.
@@ -11,12 +19,22 @@ public class Personnage {
 
     private float x;
     private float y;
-    private BitmapDrawable image;
+    private float dirX, dirY;
+    private Bitmap image;
+    private int nbVie;
 
     public Personnage(){}
 
-    public Personnage(BitmapDrawable image,float x,float y){
+    public Personnage(Bitmap image,float x,float y){
         this.image = image;
+        this.x = x;
+        this.y = y;
+    }
+
+    public Personnage(Context context, float x, float y){
+
+        Bitmap bm = BitmapFactory.decodeResource(context.getResources(), R.drawable.player);
+        this.image = bm;
         this.x = x;
         this.y = y;
     }
@@ -37,17 +55,42 @@ public class Personnage {
         return y;
     }
 
+    public void setDirX(float dirX) {
+        this.dirX = dirX;
+    }
 
-    public BitmapDrawable getImage() {
+    public void setDirY(float dirY) {
+        this.dirY = dirY;
+    }
+
+    public Bitmap getImage() {
         return image;
     }
 
-    public void setImage(BitmapDrawable image) {
+    public void setImage(Bitmap image) {
         this.image = image;
     }
 
-    public void seDeplacer(float vitesseX, float vitesseY){
-        this.x = vitesseX;
-        this.y = vitesseY;
+
+
+    public void seDeplacer(float screenHeight, float screenWidth){
+        float tempX, tempY;
+
+        tempX = x + dirX;
+        tempY = y + dirY;
+
+        if ( ! (x < 0.0f && y < 0.0f) && !(x > screenWidth && y > screenHeight)) {
+            x = tempX;
+            y = tempY;
+        }
+
     }
+
+    public void dessiner(Canvas canvas){
+        Paint paint = new Paint();
+        paint.setAntiAlias(true);
+        paint.setFilterBitmap(true);
+        paint.setDither(true);
+
+        canvas.drawBitmap(image, x, y, paint);    }
 }
