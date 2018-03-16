@@ -14,6 +14,7 @@ import android.content.Context;
 
 import fr.quithot.com.quithot.domain.Balle;
 import fr.quithot.com.quithot.domain.BalleFactory;
+import fr.quithot.com.quithot.domain.BonusType;
 import fr.quithot.com.quithot.domain.Personnage;
 import fr.quithot.com.quithot.domain.TiltType;
 import fr.quithot.com.quithot.sensors.LuminosityConsumer;
@@ -197,5 +198,17 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
     public void notifierLuminosity() {
         //handle luminosite
         System.out.println("NOIR");
+    }
+
+    private void lancerVie(){
+        balleFactory.addBonus(BonusType.VIE);
+    }
+
+    private void lancerArmure(){
+        balleFactory.addBonus(BonusType.ARMURE);
+    }
+
+    private void lancerArret(){
+        balleFactory.addBonus(BonusType.PAUSE);
     }
 }
