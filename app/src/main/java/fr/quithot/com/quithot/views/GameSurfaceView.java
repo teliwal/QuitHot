@@ -21,6 +21,18 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
     private Balle balle;
 
 
+    public GameSurfaceView(Context context) {
+        super(context);
+
+        getHolder().addCallback(this);
+        thread = new GameThread(this);
+
+        balle = new Balle(0.0f, 0.0f, 50, 1, 1, false, this.getContext());
+
+        System.err.println("Création instance surface");
+    }
+
+
     public GameSurfaceView(Context context, AttributeSet attrs) {
         super(context, attrs);
 
@@ -46,10 +58,6 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
 
     @Override
     protected void onDraw(Canvas canvas) {
-
-
-        if (canvas == null)
-            return;
 
         // on efface l'écran, en blanc
         canvas.drawColor(Color.WHITE);
