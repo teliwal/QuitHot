@@ -22,7 +22,7 @@ public class OrientationListener implements SensorEventListener {
         if(event.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
             System.arraycopy(event.values, 0, mAccelerometerReading,
                     0, mAccelerometerReading.length);
-            consumer.notifier();
+            consumer.notifierOrientation();
         }
     }
 
