@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "1020041845366",
+    "firebase_url": "https://quithot-a1ca4.firebaseio.com",
+    "project_id": "quithot-a1ca4",
+    "storage_bucket": "quithot-a1ca4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1020041845366:android:72551e49727cc18f",
+        "android_client_info": {
+          "package_name": "fr.quithot.com.quithot"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1020041845366-mt7n0cfm9huan2hnku0ur8s8vnn5qs90.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDKV6CFTMHt4FxSUWjkQKCDf8_1NgPwIWM"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

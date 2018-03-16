@@ -20,12 +20,56 @@ public class Balle {
     private Context context;
     private Paint paint;
 
+    private Personnage personnage;
+
+
     public Balle() {
         this.paint = new Paint();
         this.paint.setStyle(Paint.Style.FILL_AND_STROKE);
         this.paint.setColor(Color.BLACK);
     }
 
+    public void collision(){
+        if(personnage!=null){//personnage n'a d'armure
+            if(touchePersonnage()){
+                //personnage dimunier vie
+                disparaitre();
+            }
+        } else{
+            if(toucherArmure()){
+                rebondir();
+            }
+        }
+    }
+
+    private void rebondir(){
+        vitesseX = - vitesseX;
+        vitesseY = - vitesseY;
+    }
+
+    private void disparaitre(){
+        x = -1.2f;
+    }
+
+    private boolean touchePersonnage(){
+        float posX = personnage.getX();
+        float posY = personnage.getY();
+        float distance = (float) Math.sqrt((x-posX) * ((x-posX)) + ((y-posY) * (y-posY)));
+        if(distance < radius+48.f){
+            return true;
+        }
+        return  false;
+    }
+
+    private boolean toucherArmure(){
+        float posX = personnage.getX();
+        float posY = personnage.getY();
+        float distance = (float) Math.sqrt((x-posX) * ((x-posX)) + ((y-posY) * (y-posY)));
+        if(distance < radius+58.f){
+            return true;
+        }
+        return  false;
+    }
     public Balle(float x, float y, int radius, double vitesseX, double vitesseY, boolean pause, Context context) {
         this.x = x;
         this.y = y;
@@ -37,6 +81,14 @@ public class Balle {
         this.paint = new Paint();
         this.paint.setStyle(Paint.Style.FILL_AND_STROKE);
         this.paint.setColor(Color.BLACK);
+    }
+
+    public void setPersonnage(Personnage personnage) {
+        this.personnage = personnage;
+    }
+
+    public Personnage getPersonnage() {
+        return personnage;
     }
 
     public double getX() {
