@@ -37,14 +37,17 @@ public class Balle {
                 System.out.println("collision");
                 personnage.decrementerVie();
                 disparaitre();
+                Vibrator vib = (Vibrator)context.getSystemService(Context.VIBRATOR_SERVICE);
+                vib.vibrate(VibrationEffect.createOneShot(200,VibrationEffect.DEFAULT_AMPLITUDE));
             }
         } else{
             if(toucherArmure()){
                 rebondir();
+                Vibrator vib = (Vibrator)context.getSystemService(Context.VIBRATOR_SERVICE);
+                vib.vibrate(VibrationEffect.createOneShot(200,VibrationEffect.DEFAULT_AMPLITUDE));
             }
         }
-        Vibrator vib = (Vibrator)context.getSystemService(Context.VIBRATOR_SERVICE);
-        vib.vibrate(VibrationEffect.createOneShot(200,VibrationEffect.DEFAULT_AMPLITUDE));
+
     }
 
     private void rebondir(){

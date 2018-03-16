@@ -151,7 +151,8 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
         textPaint.setTextSize(48f);
         canvas.drawText(String.valueOf(perso.getNbVie()), getWidth() - 100, 100, textPaint);
         canvas.drawText(String.valueOf(perso.getNbUseArmure()), getWidth() - 300, 100, textPaint);
-        canvas.drawText(String.valueOf(score), getWidth() - 500, 100, textPaint);
+        canvas.drawText(String.valueOf(perso.getNbUseStop()), getWidth() - 500, 100, textPaint);
+        canvas.drawText(String.valueOf(score), getWidth() - 800, 100, textPaint);
 
 
         Paint paint = new Paint();
@@ -161,7 +162,8 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
 
         canvas.drawBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.heart), getWidth() - 190, 50, paint);
         canvas.drawBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.shield), getWidth() - 390, 50, paint);
-        canvas.drawBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.cup), getWidth() - 620, 50, paint);
+        canvas.drawBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.clock), getWidth() - 620, 50, paint);
+        canvas.drawBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.cup), getWidth() - 900, 50, paint);
 
 
 
