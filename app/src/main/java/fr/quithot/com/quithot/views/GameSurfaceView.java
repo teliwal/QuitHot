@@ -14,6 +14,8 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.content.Context;
 
+import java.util.TimerTask;
+
 import fr.quithot.com.quithot.activity.MainActivity;
 import fr.quithot.com.quithot.domain.Balle;
 import fr.quithot.com.quithot.domain.BalleFactory;
@@ -44,6 +46,8 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
     private SensorManager managerShake;
     private ScreenListener screenListener;
     private SensorManager managerLimunosite;
+
+    private TimerTask armureTimer;
 
     final Handler handler2 = new Handler();
     Runnable runnable2 = new Runnable() {
@@ -153,11 +157,6 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
 
 
     @Override
-    public void notifierShake() {
-        System.out.println("SHAKE SHAKE");
-    }
-
-    @Override
     public void notifierTilt(TiltType type) {
         switch (type) {
             case BAS:
@@ -219,8 +218,28 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
 
     @Override
     public void notifierLuminosity() {
-        //handle luminosite
         System.out.println("NOIR");
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                perso.enleverArmure();
+            }
+        },1000);
+        perso.mettreArmure();
+    }
+
+    @Override
+    public void notifierShake() {
+        System.out.println("SHAKE SHAKE");
+        balleFactory.pause();
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                balleFactory.redemarrer();
+            }
+        },2000);
     }
 
     private void lancerVie(){

@@ -154,4 +154,16 @@ public class BalleFactory {
     public void addBonus(BonusType type){
         listeBalle.add(createBalle(true,type));
     }
+
+    public void  pause(){
+        for(Balle b: listeBalle){
+            b.setPause(true);
+        }
+    }
+
+    public void redemarrer(){
+        for(Balle b: listeBalle){
+            b.setPause(true);
+        }
+    }
 }
