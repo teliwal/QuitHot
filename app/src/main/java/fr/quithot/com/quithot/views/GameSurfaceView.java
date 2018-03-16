@@ -288,7 +288,7 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
             public void run() {
                 perso.enleverArmure();
             }
-        },1000);
+        },5000);
         perso.mettreArmure();
     }
 
