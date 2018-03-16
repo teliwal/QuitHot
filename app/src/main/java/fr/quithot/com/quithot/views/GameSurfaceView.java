@@ -166,8 +166,6 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
         canvas.drawBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.clock), getWidth() - 620, 50, paint);
         canvas.drawBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.cup), getWidth() - 900, 50, paint);
 
-
-
         if(!isPaused){
             score++;
         }
@@ -275,7 +273,9 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
             perso.incrementerVie();
         } else if(b.getBonusType()==BonusType.ARMURE){
             perso.incrementerNbArmure();
-        } else perso.decrementerArret();
+        } else {
+            perso.incrementerNbArret();
+        }
         b.disparaitre();
     }
 
@@ -288,7 +288,7 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
             public void run() {
                 perso.enleverArmure();
             }
-        },1000);
+        },5000);
         perso.mettreArmure();
     }
 

@@ -114,7 +114,8 @@ public class OrientationListener implements SensorEventListener {
             }
             mShakeTimestamp = now;
             mShakeCount++;
+            return true;
         }
-        return  mShakeCount >= 3;
+        return  false;
     }
 }
