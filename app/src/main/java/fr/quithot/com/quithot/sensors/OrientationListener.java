@@ -101,6 +101,7 @@ public class OrientationListener implements SensorEventListener {
             final long now = System.currentTimeMillis();
             // ignore shake events too close to each other (500ms)
             if (mShakeTimestamp + SHAKE_SLOP_TIME_MS > now) {
+                mShakeCount++;
                 return false;
             }
             // reset the shake count after 3 seconds of no shakes
@@ -110,6 +111,6 @@ public class OrientationListener implements SensorEventListener {
             mShakeTimestamp = now;
             mShakeCount++;
         }
-        return  mShakeCount > 5;
+        return  mShakeCount >= 3;
     }
 }
