@@ -32,6 +32,7 @@ public class Balle {
     public void collision(){
         if(!personnage.isArmure()){//personnage n'a d'armure
             if(touchePersonnage()){
+                System.out.println("collision");
                 personnage.decrementerVie();
                 disparaitre();
             }
@@ -70,7 +71,7 @@ public class Balle {
         }
         return  false;
     }
-    public Balle(float x, float y, int radius, double vitesseX, double vitesseY, boolean pause, Context context) {
+    public Balle(float x, float y, int radius, double vitesseX, double vitesseY, boolean pause, Context context,Personnage personnage) {
         this.x = x;
         this.y = y;
         this.radius = radius;
@@ -81,6 +82,7 @@ public class Balle {
         this.paint = new Paint();
         this.paint.setStyle(Paint.Style.FILL_AND_STROKE);
         this.paint.setColor(Color.BLACK);
+        this.personnage = personnage;
     }
 
     public void setPersonnage(Personnage personnage) {
@@ -119,6 +121,7 @@ public class Balle {
         System.err.println(x + " " + y + " " + vitesseX + " " + vitesseY);
         this.x += vitesseX;
         this.y += vitesseY;
+        collision();
         System.err.println(x + " " + y + " " + vitesseX + " " + vitesseY);
 
     }

@@ -18,10 +18,11 @@ public class BalleFactory {
     private float screenHeight, screenWidth;
     Random rand = new Random();
     private Context context;
+    private Personnage personnage;
 
-    public BalleFactory(Context c) {
+    public BalleFactory(Context c,Personnage personnage) {
         listeBalle = new ArrayList<>();
-
+        this.personnage = personnage;
         context = c;
     }
 
@@ -117,7 +118,7 @@ public class BalleFactory {
             if (negY)
                 dirY = -dirY;
 
-            listeBalle.add(new Balle(x, y, 50, dirX, dirY, false, context));
+            listeBalle.add(new Balle(x, y, 50, dirX, dirY, false, context,personnage));
 
             cpt++;
         }
@@ -132,7 +133,7 @@ public class BalleFactory {
             if (b.isOutOfRange(screenHeight, screenWidth))
                 temp.add(b);
         }
-        System.err.println(listeBalle.size());g
+        System.err.println(listeBalle.size());
 
         listeBalle.removeAll(temp);
     }

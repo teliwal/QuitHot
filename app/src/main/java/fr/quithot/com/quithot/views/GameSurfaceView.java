@@ -38,7 +38,7 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
         thread = new GameThread(this);
 
         perso = new Personnage(this.getContext(), 600.0f, 500.0f);
-        balleFactory = new BalleFactory(this.getContext());
+        balleFactory = new BalleFactory(this.getContext(),perso);
 
         System.err.println("Création instance surface");
     }

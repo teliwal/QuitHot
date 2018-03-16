@@ -10,8 +10,8 @@ public class BalleBonus extends Balle {
 
     BonusType bonusType;
 
-    BalleBonus(float x, float y, int radius, double vitesseX, double vitesseY, boolean pause, Context context,BonusType type){
-        super(x,y,radius,vitesseX,vitesseY,pause,context);
+    BalleBonus(float x, float y, int radius, double vitesseX, double vitesseY, boolean pause, Context context,Personnage personnage,BonusType type){
+        super(x,y,radius,vitesseX,vitesseY,pause,context,personnage);
         this.bonusType = type;
     }
 
