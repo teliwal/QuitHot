@@ -1,6 +1,9 @@
 package fr.quithot.com.quithot.domain;
 
 import android.content.Context;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.Point;
 
 /**
@@ -8,19 +11,22 @@ import android.graphics.Point;
  */
 
 public class Balle {
-    private double x;
-    private double y;
+    private float x;
+    private float y;
     private int radius;
     private double vitesseX;
     private double vitesseY;
     private boolean pause;
     private Context context;
-
+    private Paint paint;
 
     public Balle() {
+        this.paint = new Paint();
+        this.paint.setStyle(Paint.Style.FILL_AND_STROKE);
+        this.paint.setColor(Color.BLACK);
     }
 
-    public Balle(double x, double y, int radius, double vitesseX, double vitesseY, boolean pause, Context context) {
+    public Balle(float x, float y, int radius, double vitesseX, double vitesseY, boolean pause, Context context) {
         this.x = x;
         this.y = y;
         this.radius = radius;
@@ -28,13 +34,16 @@ public class Balle {
         this.vitesseY = vitesseY;
         this.pause = pause;
         this.context = context;
+        this.paint = new Paint();
+        this.paint.setStyle(Paint.Style.FILL_AND_STROKE);
+        this.paint.setColor(Color.BLACK);
     }
 
     public double getX() {
         return x;
     }
 
-    public void setX(double x) {
+    public void setX(float x) {
         this.x = x;
     }
 
@@ -42,7 +51,7 @@ public class Balle {
         return y;
     }
 
-    public void setY(double y) {
+    public void setY(float y) {
         this.y = y;
     }
 
@@ -89,6 +98,10 @@ public class Balle {
 
     public void setContext(Context context) {
         this.context = context;
+    }
+
+    public void dessiner(Canvas canvas){
+        canvas.drawCircle(x,y,this.radius,this.paint);
     }
 }
 
