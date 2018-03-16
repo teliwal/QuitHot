@@ -5,6 +5,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Point;
+import android.os.Build;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
 
@@ -37,15 +38,23 @@ public class Balle {
                 System.out.println("collision");
                 personnage.decrementerVie();
                 disparaitre();
-                Vibrator vib = (Vibrator)context.getSystemService(Context.VIBRATOR_SERVICE);
-                vib.vibrate(VibrationEffect.createOneShot(200,VibrationEffect.DEFAULT_AMPLITUDE));
+                vibre();
+             g
             }
         } else{
             if(toucherArmure()){
                 rebondir();
-                Vibrator vib = (Vibrator)context.getSystemService(Context.VIBRATOR_SERVICE);
-                vib.vibrate(VibrationEffect.createOneShot(200,VibrationEffect.DEFAULT_AMPLITUDE));
+                vibre();
+
             }
+        }
+
+    }
+
+    public void vibre() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            Vibrator vib = (Vibrator)context.getSystemService(Context.VIBRATOR_SERVICE);
+            vib.vibrate(VibrationEffect.createOneShot(200,VibrationEffect.DEFAULT_AMPLITUDE));
         }
 
     }
