@@ -47,7 +47,10 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
     private ScreenListener screenListener;
     private SensorManager managerLimunosite;
 
-    private TimerTask armureTimer;
+    private boolean isPaused;
+
+    private int score;
+
 
     final Handler handler2 = new Handler();
     Runnable runnable2 = new Runnable() {
@@ -118,6 +121,9 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
         balleFactory.drawAll(canvas);
         perso.seDeplacer(canvas.getHeight(), getWidth());
         perso.dessiner(canvas);
+        if(!isPaused){
+            score++;
+        }
     }
 
     @Override
@@ -233,11 +239,13 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
     public void notifierShake() {
         System.out.println("SHAKE SHAKE");
         balleFactory.pause();
+        isPaused = true;
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
                 balleFactory.redemarrer();
+                isPaused = false;
             }
         },2000);
     }
