@@ -1,6 +1,9 @@
 package fr.quithot.com.quithot.views;
 
+import android.content.Context;
 import android.graphics.Canvas;
+
+import fr.quithot.com.quithot.domain.BalleFactory;
 
 /**
  * Created by mathieukostiuk on 16/03/2018.
@@ -13,8 +16,12 @@ public class GameThread extends Thread {
     private final GameSurfaceView view;
     private boolean running = false;
 
+    private boolean screenSet = false;
+
     public GameThread(GameSurfaceView v) {
         this.view = v;
+
+
     }
 
     public void setRunning(boolean r) {
@@ -29,8 +36,9 @@ public class GameThread extends Thread {
 
         while (running) {
 
-            System.err.println("Tour");
             startTime = System.currentTimeMillis();
+
+
 
             synchronized (view.getHolder()) {view.update();}
 
