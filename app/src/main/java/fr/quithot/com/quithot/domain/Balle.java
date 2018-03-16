@@ -30,9 +30,9 @@ public class Balle {
     }
 
     public void collision(){
-        if(personnage!=null){//personnage n'a d'armure
+        if(!personnage.isArmure()){//personnage n'a d'armure
             if(touchePersonnage()){
-                //personnage dimunier vie
+                personnage.decrementerVie();
                 disparaitre();
             }
         } else{

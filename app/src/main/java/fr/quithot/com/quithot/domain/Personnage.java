@@ -22,6 +22,8 @@ public class Personnage {
     private float dirX, dirY;
     private Bitmap image;
     private int nbVie;
+    private boolean armure;
+
 
     public Personnage(){}
 
@@ -37,6 +39,18 @@ public class Personnage {
         this.image = bm;
         this.x = x;
         this.y = y;
+    }
+
+    public void decrementerVie(){
+        nbVie--;
+    }
+
+    public boolean isArmure() {
+        return armure;
+    }
+
+    public void setArmure(boolean armure) {
+        this.armure = armure;
     }
 
     public void setX(float x) {
