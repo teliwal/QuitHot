@@ -1,4 +1,4 @@
-package fr.quithot.com.quithot;
+package fr.quithot.com.quithot.activity;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -8,6 +8,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import fr.quithot.com.quithot.R;
 
 public class MainActivity extends AppCompatActivity {
 
