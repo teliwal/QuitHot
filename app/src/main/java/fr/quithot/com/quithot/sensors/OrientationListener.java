@@ -54,20 +54,36 @@ public class OrientationListener implements SensorEventListener {
         System.out.println(tab);
         float x = tab[0];
         float y = tab[1];
-        if(x > 0.5f){
-            tiltType = TiltType.DROITE;
+        if (x > 0.5f && y > 0.5f) {
+            tiltType = TiltType.HAUT_DROITE;
             return true;
         }
-        if(x < -0.5f){
-            tiltType = TiltType.GAUCHE;
+        else if(x > 0.5f && y < -0.5f){
+            tiltType = TiltType.BAS_DROIT;
             return true;
         }
-        if(y > 0.5f){
+        if(x < -0.5f && y > 0.5f){
+            tiltType = TiltType.HAUT_GAUCHE;
+            return true;
+        }
+        if(x < -0.5f && y < -0.5f){
+            tiltType = TiltType.HAUT_DROITE;
+            return true;
+        }
+        if (y > 0.5f) {
             tiltType = TiltType.HAUT;
-            return true;
+            return  true;
         }
         if(y < -0.5f){
             tiltType = TiltType.BAS;
+            return true;
+        }
+        if (x > 0.5f) {
+            tiltType = TiltType.DROITE;
+            return true;
+        }
+        if (x < -0.5f) {
+            tiltType = TiltType.GAUCHE;
             return true;
         }
         return  false;

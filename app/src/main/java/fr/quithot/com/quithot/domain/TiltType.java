@@ -5,5 +5,5 @@ package fr.quithot.com.quithot.domain;
  */
 
 public enum TiltType {
-    HAUT,BAS,DROITE,GAUCHE;
+    HAUT,BAS,DROITE,GAUCHE,HAUT_DROITE,HAUT_GAUCHE,BAS_DROIT,BAS_GAUCHE;
 }
