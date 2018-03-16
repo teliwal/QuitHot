@@ -25,9 +25,12 @@ public class Personnage {
     private boolean armure;
 
 
-    public Personnage(){}
+    public Personnage(){
+
+    }
 
     public Personnage(Bitmap image,float x,float y){
+        nbVie = 5;
         this.image = image;
         this.x = x;
         this.y = y;
@@ -36,6 +39,7 @@ public class Personnage {
     public Personnage(Context context, float x, float y){
 
         Bitmap bm = BitmapFactory.decodeResource(context.getResources(), R.drawable.player);
+        nbVie = 5;
         this.image = bm;
         this.x = x;
         this.y = y;
@@ -106,5 +110,10 @@ public class Personnage {
         paint.setFilterBitmap(true);
         paint.setDither(true);
 
-        canvas.drawBitmap(image, x, y, paint);    }
+        canvas.drawBitmap(image, x, y, paint);
+    }
+
+    public int getNbVie() {
+        return nbVie;
+    }
 }

@@ -3,15 +3,18 @@ package fr.quithot.com.quithot.views;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Rect;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
 import android.os.Build;
+import android.os.Handler;
 import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.content.Context;
 
+import fr.quithot.com.quithot.activity.MainActivity;
 import fr.quithot.com.quithot.domain.Balle;
 import fr.quithot.com.quithot.domain.BalleFactory;
 import fr.quithot.com.quithot.domain.BonusType;
@@ -41,6 +44,14 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
     private SensorManager managerShake;
     private ScreenListener screenListener;
     private SensorManager managerLimunosite;
+
+    final Handler handler2 = new Handler();
+    Runnable runnable2 = new Runnable() {
+        @Override
+        public void run() {
+            MainActivity.gameOver();
+        }
+    };
 
     public GameSurfaceView(Context context) {
         super(context);
@@ -89,8 +100,15 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
     @Override
     protected void onDraw(Canvas canvas) {
 
-        // on efface l'écran, en blanc
-        canvas.drawColor(Color.WHITE);
+        if (perso.getNbVie() > 3)
+            canvas.drawColor(Color.WHITE);
+        else if (perso.getNbVie() > 1)
+            canvas.drawColor(Color.MAGENTA);
+        if (perso.getNbVie() == 1)
+            canvas.drawColor(Color.RED);
+        if (perso.getNbVie() < 1) {
+            gameOver();
+        }
 
         // on dessine la balle
         balleFactory.drawAll(canvas);
@@ -187,6 +205,11 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
 
     public void setBalleFactory(BalleFactory balleFactory) {
         this.balleFactory = balleFactory;
+    }
+
+    public void gameOver() {
+        thread.pause();
+        handler2.post(runnable2);
     }
 
     @Override
