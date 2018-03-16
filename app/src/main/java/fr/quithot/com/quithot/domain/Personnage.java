@@ -79,7 +79,7 @@ public class Personnage {
         tempX = x + dirX;
         tempY = y + dirY;
 
-        if ( ! (x < 0.0f && y < 0.0f) && !(x > screenWidth && y > screenHeight)) {
+        if ( ! (x < 0.0f) && !(y < 0.0f) && !(x > screenWidth) && !(y > screenHeight)) {
             x = tempX;
             y = tempY;
         }
