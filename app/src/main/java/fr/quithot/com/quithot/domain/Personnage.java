@@ -66,16 +66,23 @@ public class Personnage {
     }
 
     public void incrementerVie(){
-        nbVie++;
+        if(nbVie < 5) {
+            nbVie++;
+        }
 }
 
 
     public void incrementerNbArmure(){
-        nbUseArmure ++;
+
+        if(nbUseArmure < 3) {
+            nbUseArmure++;
+        }
     }
 
     public void incrementerNbArret(){
-        nbUseStop ++;
+        if(nbUseStop < 3) {
+            nbUseStop++;
+        }
     }
 
     public void  decrementerArret(){

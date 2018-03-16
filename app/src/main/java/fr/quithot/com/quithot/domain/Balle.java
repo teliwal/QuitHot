@@ -39,7 +39,6 @@ public class Balle {
                 personnage.decrementerVie();
                 disparaitre();
                 vibre();
-             g
             }
         } else{
             if(toucherArmure()){
