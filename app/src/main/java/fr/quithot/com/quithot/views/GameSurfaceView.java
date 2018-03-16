@@ -9,6 +9,7 @@ import android.view.SurfaceView;
 import android.content.Context;
 
 import fr.quithot.com.quithot.domain.Balle;
+import fr.quithot.com.quithot.domain.BalleFactory;
 
 
 /**
@@ -19,7 +20,8 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
 
     private GameThread thread;
     private Balle balle;
-
+    private BalleFactory balleFactory;
+    private boolean screenSet = false;
 
     public GameSurfaceView(Context context) {
         super(context);
@@ -27,7 +29,7 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
         getHolder().addCallback(this);
         thread = new GameThread(this);
 
-        balle = new Balle(0.0f, 0.0f, 50, 1, 1, false, this.getContext());
+        balleFactory = new BalleFactory(this.getContext());
 
         System.err.println("Création instance surface");
     }
@@ -63,7 +65,7 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
         canvas.drawColor(Color.WHITE);
 
         // on dessine la balle
-        balle.dessiner(canvas);
+        balleFactory.drawAll(canvas);
         System.err.println("Draw");
     }
 
@@ -89,7 +91,16 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
     }
 
     public void update() {
-        balle.mouvementBalle(5.0, 5.0);
+
+        balleFactory.addBalle();
+
+        if (!screenSet) {
+            screenSet = true;
+            balleFactory.setHeight(this.getHeight());
+            balleFactory.setWidth(this.getWidth());
+        }
+
+        balleFactory.moveAll();
     }
 
 
