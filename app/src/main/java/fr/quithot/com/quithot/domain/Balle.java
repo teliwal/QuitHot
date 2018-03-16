@@ -85,6 +85,10 @@ public class Balle {
         this.personnage = personnage;
     }
 
+    public void setColor(int color){
+        paint.setColor(color);
+    }
+
     public void setPersonnage(Personnage personnage) {
         this.personnage = personnage;
     }
