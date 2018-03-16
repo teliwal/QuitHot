@@ -29,4 +29,7 @@ public class BalleBonus extends Balle {
         this.bonusType = bonusType;
     }
 
+    @Override
+    public void collision() {
+    }
 }

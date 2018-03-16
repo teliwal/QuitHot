@@ -9,6 +9,8 @@ import android.hardware.Sensor;
 import android.hardware.SensorManager;
 import android.os.Build;
 import android.os.Handler;
+import android.os.VibrationEffect;
+import android.os.Vibrator;
 import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
 import android.view.SurfaceHolder;
@@ -62,7 +64,7 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
     Runnable runnable2 = new Runnable() {
         @Override
         public void run() {
-            MainActivity.gameOver();
+            MainActivity.gameOver(score);
         }
     };
 
@@ -150,7 +152,8 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
         textPaint.setTextSize(48f);
         canvas.drawText(String.valueOf(perso.getNbVie()), getWidth() - 100, 100, textPaint);
         canvas.drawText(String.valueOf(perso.getNbUseArmure()), getWidth() - 300, 100, textPaint);
-        canvas.drawText(String.valueOf(score), getWidth() - 500, 100, textPaint);
+        canvas.drawText(String.valueOf(perso.getNbUseStop()), getWidth() - 500, 100, textPaint);
+        canvas.drawText(String.valueOf(score), getWidth() - 800, 100, textPaint);
 
 
         Paint paint = new Paint();
@@ -160,7 +163,8 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
 
         canvas.drawBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.heart), getWidth() - 190, 50, paint);
         canvas.drawBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.shield), getWidth() - 390, 50, paint);
-        canvas.drawBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.cup), getWidth() - 620, 50, paint);
+        canvas.drawBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.clock), getWidth() - 620, 50, paint);
+        canvas.drawBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.cup), getWidth() - 900, 50, paint);
 
 
 
@@ -258,6 +262,8 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
     public void gameOver() {
         thread.pause();
         handler2.post(runnable2);
+        Vibrator vib = (Vibrator)getContext().getSystemService(Context.VIBRATOR_SERVICE);
+        vib.vibrate(VibrationEffect.createOneShot(1000,VibrationEffect.DEFAULT_AMPLITUDE));
     }
 
     @Override
