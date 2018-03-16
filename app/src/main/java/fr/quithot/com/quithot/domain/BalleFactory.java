@@ -136,8 +136,8 @@ public class BalleFactory {
 
         }
 
-        dirX = rand.nextInt(100);
-        dirY = rand.nextInt(100);
+        dirX = rand.nextInt(maxVitesse);
+        dirY = rand.nextInt(maxVitesse);
 
         if (negX)
             dirX = -dirX;
@@ -180,7 +180,7 @@ public class BalleFactory {
 
     public void redemarrer(){
         for(Balle b: listeBalle){
-            b.setPause(true);
+            b.setPause(false);
         }
     }
 }
