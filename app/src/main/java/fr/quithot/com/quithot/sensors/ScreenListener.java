@@ -19,8 +19,9 @@ public class ScreenListener implements View.OnTouchListener{
     public ScreenListener() {
     }
 
-    public ScreenListener(GameSurfaceView gameSurfaceView) {
+    public ScreenListener(GameSurfaceView gameSurfaceView,ScreenConsumer consumer) {
         this.gameSurfaceView = gameSurfaceView;
+        this.consumer = consumer;
     }
 
     public GameSurfaceView getGameSurfaceView() {
@@ -46,8 +47,10 @@ public class ScreenListener implements View.OnTouchListener{
         for (Balle balle: this.gameSurfaceView.getBalleFactory().getListeBalle()) {
             if(event.getAction() == MotionEvent.ACTION_DOWN){
                 if((balle instanceof BalleBonus)){
-                    consumer.notifierBonus();
-                    return (verrifierTouch(touchX, touchY, balle));
+                    if(verrifierTouch(touchX, touchY, balle)){
+                        consumer.notifierBonus(balle);
+                        return  true;
+                    }
                 }
             }
         }
