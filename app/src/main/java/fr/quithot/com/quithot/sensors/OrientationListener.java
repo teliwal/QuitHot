@@ -85,10 +85,10 @@ public class OrientationListener implements SensorEventListener {
             tiltType = TiltType.GAUCHE;
             return true;
         }
-        if (x > -0.5f && x < 0.5f && y > -0.5f && y < 0.5f) {
+        /*if (x > -0.5f && x < 0.5f && y > -0.5f && y < 0.5f) {
             tiltType = TiltType.CENTRE;
             return true;
-        }
+        }*/
         return  false;
     }
 

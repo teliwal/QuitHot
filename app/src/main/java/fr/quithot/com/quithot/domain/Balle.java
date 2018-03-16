@@ -64,7 +64,7 @@ public class Balle {
         vitesseY = - vitesseY;
     }
 
-    private void disparaitre(){
+    public void disparaitre(){
         x = -1.2f;
     }
 
