@@ -46,6 +46,8 @@ public class Personnage {
         this.image = image;
     }
 
-
-
+    public void seDeplacer(float vitesseX, float vitesseY){
+        this.x = vitesseX;
+        this.y = vitesseY;
+    }
 }
