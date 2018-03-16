@@ -261,8 +261,10 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
     public void gameOver() {
         thread.pause();
         handler2.post(runnable2);
-        Vibrator vib = (Vibrator)getContext().getSystemService(Context.VIBRATOR_SERVICE);
-        vib.vibrate(VibrationEffect.createOneShot(1000,VibrationEffect.DEFAULT_AMPLITUDE));
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            Vibrator vib = (Vibrator) getContext().getSystemService(Context.VIBRATOR_SERVICE);
+            vib.vibrate(VibrationEffect.createOneShot(1000, VibrationEffect.DEFAULT_AMPLITUDE));
+        }
     }
 
     @Override
