@@ -1,12 +1,15 @@
 package fr.quithot.com.quithot.activity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
 import fr.quithot.com.quithot.R;
+import fr.quithot.com.quithot.domain.Difficulte;
+import fr.quithot.com.quithot.domain.Parametres;
 
 public class GameActivity extends AppCompatActivity {
 
@@ -15,6 +18,7 @@ public class GameActivity extends AppCompatActivity {
     Button bouttonDifficile;
     Button bouttonScore;
     Button bouttonAide;
+    SharedPreferences preferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,12 +35,25 @@ public class GameActivity extends AppCompatActivity {
                 activateFacile();
             }
         });
+        preferences = getSharedPreferences(Parametres.DIFFICULTE, MODE_PRIVATE);
     }
 
     private void activateFacile(){
         Intent intent = new Intent(GameActivity.this, MainActivity.class);
+        preferences.edit().putString(Parametres.DIFFICULTE, "FACILE").apply();
         startActivity(intent);
     }
 
+    public void activateMoyen(View view) {
+        Intent intent = new Intent(GameActivity.this, MainActivity.class);
+        preferences.edit().putString(Parametres.DIFFICULTE, "MOYEN").apply();
+        startActivity(intent);
+    }
+
+    public void activateDifficile(View view) {
+        Intent intent = new Intent(GameActivity.this, MainActivity.class);
+        preferences.edit().putString(Parametres.DIFFICULTE, "DIFFICILE").apply();
+        startActivity(intent);
+    }
 
 }
