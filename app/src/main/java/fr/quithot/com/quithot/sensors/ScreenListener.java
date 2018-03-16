@@ -58,8 +58,7 @@ public class ScreenListener implements View.OnTouchListener{
     }
 
     private boolean verrifierTouch(int touchX, int touchY, Balle balle) {
-        boolean axeX = (touchX <= (balle.getX() + balle.getRadius())) && (touchX >= (balle.getX() + balle.getRadius()));
-        boolean axeY = (touchY <= (balle.getY() + balle.getRadius())) && (touchY >= (balle.getY() + balle.getRadius()));
-        return (axeX && axeY);
+        float distance = (float) (Math.sqrt((touchX-balle.getX()) * (touchX-balle.getX())) + ((touchY-balle.getY() * (touchY-balle.getY()))));
+        return (distance >= balle.getRadius());
     }
 }

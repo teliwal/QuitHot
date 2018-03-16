@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 
 public class BalleFactory {
 
-    ArrayList<Balle> listeBalle;
+    volatile ArrayList<Balle> listeBalle;
     private float screenHeight, screenWidth;
     Random rand = new Random();
     private Context context;

@@ -22,6 +22,7 @@ import java.util.TimerTask;
 import fr.quithot.com.quithot.R;
 import fr.quithot.com.quithot.activity.MainActivity;
 import fr.quithot.com.quithot.domain.Balle;
+import fr.quithot.com.quithot.domain.BalleBonus;
 import fr.quithot.com.quithot.domain.BalleFactory;
 import fr.quithot.com.quithot.domain.Difficulte;
 import fr.quithot.com.quithot.domain.BonusType;
@@ -108,7 +109,7 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
         thread.setRunning(true);
         thread.start();
         Timer timer = new Timer();
-        timer.schedule(new MyTimerTask(),5000);
+        timer.schedule(new MyTimerTask(),1000,5000);
 
     }
 
@@ -261,7 +262,13 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
 
     @Override
     public void notifierBonus(Balle balle) {
-        //handle bonus
+        BalleBonus b = (BalleBonus) balle;
+        if(b.getBonusType() == BonusType.VIE){
+            perso.incrementerVie();
+        } else if(b.getBonusType()==BonusType.ARMURE){
+            perso.incrementerNbArmure();
+        } else perso.decrementerArret();
+        b.disparaitre();
     }
 
     @Override
