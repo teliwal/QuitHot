@@ -21,11 +21,28 @@ public class BalleFactory {
     Random rand = new Random();
     private Context context;
     private Personnage personnage;
+    private int maxVitesse;
+    private int nbBalles;
 
-    public BalleFactory(Context c,Personnage personnage) {
+    public BalleFactory(Context c, Personnage personnage, Difficulte diff) {
         listeBalle = new ArrayList<>();
         this.personnage = personnage;
         context = c;
+
+        switch (diff) {
+            case FACILE:
+                maxVitesse = 25;
+                nbBalles = 3;
+                break;
+            case MOYEN:
+                maxVitesse = 50;
+                nbBalles = 5;
+                break;
+            case DIFFICILE:
+                maxVitesse = 65;
+                nbBalles = 5;
+                break;
+        }
     }
 
     public void setHeight(int height) {
@@ -44,7 +61,7 @@ public class BalleFactory {
 
         int cpt = listeBalle.size();
 
-        while (cpt < 1) {
+        while (cpt < nbBalles) {
 
             int posInit = rand.nextInt(8);
 
@@ -111,8 +128,8 @@ public class BalleFactory {
 
             }
 
-            dirX = rand.nextInt(100);
-            dirY = rand.nextInt(100);
+            dirX = rand.nextInt(maxVitesse);
+            dirY = rand.nextInt(maxVitesse);
 
             if (negX)
                 dirX = -dirX;

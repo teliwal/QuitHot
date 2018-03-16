@@ -17,6 +17,7 @@ import android.content.Context;
 import fr.quithot.com.quithot.activity.MainActivity;
 import fr.quithot.com.quithot.domain.Balle;
 import fr.quithot.com.quithot.domain.BalleFactory;
+import fr.quithot.com.quithot.domain.Difficulte;
 import fr.quithot.com.quithot.domain.Personnage;
 import fr.quithot.com.quithot.domain.TiltType;
 import fr.quithot.com.quithot.sensors.LuminosityConsumer;
@@ -52,14 +53,14 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
         }
     };
 
-    public GameSurfaceView(Context context) {
+    public GameSurfaceView(Context context, String diff) {
         super(context);
 
         getHolder().addCallback(this);
         thread = new GameThread(this);
 
         perso = new Personnage(this.getContext(), 600.0f, 500.0f);
-        balleFactory = new BalleFactory(this.getContext(),perso);
+        balleFactory = new BalleFactory(this.getContext(),perso, Difficulte.valueOf(diff));
         screenListener = new ScreenListener(this,this);
         setOnTouchListener(screenListener);
     }

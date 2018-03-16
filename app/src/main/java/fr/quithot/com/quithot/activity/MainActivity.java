@@ -3,6 +3,7 @@ package fr.quithot.com.quithot.activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
@@ -16,26 +17,32 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import fr.quithot.com.quithot.R;
+import fr.quithot.com.quithot.domain.Parametres;
 import fr.quithot.com.quithot.views.GameSurfaceView;
 
 public class MainActivity extends AppCompatActivity {
 
     private GameSurfaceView view;
     private static Context context;
+    private static Intent oldIntent;
+    public static String diff;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         context = this;
-        setContentView(new GameSurfaceView(this));
+        SharedPreferences preferences = getSharedPreferences(Parametres.DIFFICULTE, MODE_PRIVATE);
+        diff = preferences.getString(Parametres.DIFFICULTE, "DIFFICULTE");
+        setContentView(new GameSurfaceView(this, diff));
     }
 
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
-        context = this;
-        setContentView(new GameSurfaceView(this));
+        SharedPreferences preferences = getSharedPreferences(Parametres.DIFFICULTE, MODE_PRIVATE);
+        diff = preferences.getString(Parametres.DIFFICULTE, "DIFFICULTE");
+        setContentView(new GameSurfaceView(this, diff));
     }
 
     public static void gameOver() {

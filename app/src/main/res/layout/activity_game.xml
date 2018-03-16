@@ -23,6 +23,7 @@
             />
         <Button
             android:id="@+id/buttonMoyens"
+            android:onClick="activateMoyen"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/action_moyens"
@@ -30,6 +31,7 @@
             />
         <Button
             android:id="@+id/buttonDifficile"
+            android:onClick="activateDifficile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/action_difficile"
