@@ -66,4 +66,8 @@ public class GameThread extends Thread {
 
     }
 
+    public void pause() {
+        running = false;
+    }
+
 }
