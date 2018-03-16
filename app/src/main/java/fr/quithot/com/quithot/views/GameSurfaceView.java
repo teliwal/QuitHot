@@ -111,7 +111,7 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
         thread.setRunning(true);
         thread.start();
         Timer timer = new Timer();
-        timer.schedule(new MyTimerTask(),1000,5000);
+        timer.schedule(new MyTimerTask(),1000,2000);
 
     }
 
@@ -119,15 +119,12 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
         @Override
         public void run() {
             Random r = new Random();
-            boolean res = r.nextBoolean();
-            if(res){
                 int t = r.nextInt(3);
                 if(t==0){
                     lancerArmure();
                 } else if(t == 1){
                     lancerArret();
                 } else lancerVie();
-            }
         }
     }
     @Override

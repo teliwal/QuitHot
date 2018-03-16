@@ -162,8 +162,8 @@ public class BalleFactory {
     }
 
     public void drawAll(Canvas c) {
-        for (Balle b : listeBalle) {
-            b.dessiner(c);
+        for (int i = 0; i< listeBalle.size();i++) {
+            listeBalle.get(i).dessiner(c);
         }
     }
 

@@ -70,8 +70,8 @@ public class GameActivity extends AppCompatActivity {
     }
 
     private void activiteScore(){
-        Intent intent = new Intent(GameActivity.this, ScoreActivity.class);
-        startActivity(intent);
+       /* Intent intent = new Intent(GameActivity.this, ScoreActivity.class);
+        startActivity(intent);*/
     }
 
     public void activateMoyen(View view) {
