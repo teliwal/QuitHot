@@ -2,6 +2,8 @@ package fr.quithot.com.quithot.domain;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -124,6 +126,7 @@ public class BalleFactory {
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     public void moveAll() {
 
         List<Balle> temp = new ArrayList<>();
