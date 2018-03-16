@@ -129,4 +129,6 @@ public class Personnage {
     public int getNbVie() {
         return nbVie;
     }
+
+
 }

@@ -1,5 +1,6 @@
 package fr.quithot.com.quithot.views;
 
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -16,6 +17,7 @@ import android.content.Context;
 
 import java.util.TimerTask;
 
+import fr.quithot.com.quithot.R;
 import fr.quithot.com.quithot.activity.MainActivity;
 import fr.quithot.com.quithot.domain.Balle;
 import fr.quithot.com.quithot.domain.BalleFactory;
@@ -119,6 +121,21 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
         balleFactory.drawAll(canvas);
         perso.seDeplacer(canvas.getHeight(), getWidth());
         perso.dessiner(canvas);
+        Paint textPaint = new Paint();
+        textPaint.setColor(Color.BLACK);
+        textPaint.setTextSize(48f);
+        canvas.drawText(String.valueOf(perso.getNbVie()), getWidth() - 100, 100, textPaint);
+        canvas.drawText(String.valueOf(perso.), getWidth() - 100, 100, textPaint);
+
+        Paint paint = new Paint();
+        paint.setAntiAlias(true);
+        paint.setFilterBitmap(true);
+        paint.setDither(true);
+
+        canvas.drawBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.heart), getWidth() - 150, 50, paint);
+        canvas.drawBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.shield), getWidth() - 350, 50, paint);
+
+
     }
 
     @Override
