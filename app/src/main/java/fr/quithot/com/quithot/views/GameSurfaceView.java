@@ -5,6 +5,8 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -16,6 +18,8 @@ import fr.quithot.com.quithot.domain.Personnage;
 import fr.quithot.com.quithot.domain.TiltType;
 import fr.quithot.com.quithot.sensors.OrientationConsumer;
 import fr.quithot.com.quithot.sensors.OrientationListener;
+import fr.quithot.com.quithot.sensors.ScreenConsumer;
+import fr.quithot.com.quithot.sensors.ScreenListener;
 
 
 /**
@@ -29,6 +33,7 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
     private BalleFactory balleFactory;
     private boolean screenSet = false;
     private OrientationListener orientationListener = new OrientationListener(this);
+    private ScreenListener screenListener;
     private SensorManager manager;
 
     public GameSurfaceView(Context context) {
@@ -49,8 +54,7 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
 
         getHolder().addCallback(this);
         thread = new GameThread(this);
-
-
+        this.screenListener = new ScreenListener(this);
         System.err.println("Création instance surface");
     }
 
@@ -104,6 +108,7 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     public void update() {
 
         balleFactory.addBalle();
@@ -143,5 +148,13 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
                 perso.setDirY(0.0f);
                 break;
         }
+    }
+
+    public BalleFactory getBalleFactory() {
+        return balleFactory;
+    }
+
+    public void setBalleFactory(BalleFactory balleFactory) {
+        this.balleFactory = balleFactory;
     }
 }
