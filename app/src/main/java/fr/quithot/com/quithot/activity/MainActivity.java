@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
@@ -18,6 +19,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.EditText;
 
 import fr.quithot.com.quithot.R;
 import fr.quithot.com.quithot.domain.Parametres;
@@ -50,11 +52,13 @@ public class MainActivity extends Activity {
         setContentView(new GameSurfaceView(this, diff));
     }
 
-    public static void gameOver() {
-        AlertDialog.Builder builder1 = new AlertDialog.Builder(context);
-        builder1.setMessage("GAME OVER\n RETRY?");
+    public static void gameOver(int score) {
+        AlertDialog.Builder builder1 = new AlertDialog.Builder(context);g
+        builder1.setMessage("GAME OVER\n Votre score est :"+ score +"\n RETRY?");
         builder1.setCancelable(true);
-
+        final EditText input = new EditText(context);
+        input.setText("No Name");
+        builder1.setView(input);
         builder1.setPositiveButton(
                 "Yes",
                 new DialogInterface.OnClickListener() {

@@ -61,7 +61,7 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
     Runnable runnable2 = new Runnable() {
         @Override
         public void run() {
-            MainActivity.gameOver();
+            MainActivity.gameOver(score);
         }
     };
 
