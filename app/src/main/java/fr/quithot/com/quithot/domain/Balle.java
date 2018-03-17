@@ -59,8 +59,8 @@ public class Balle {
     }
 
     private void rebondir(){
-        vitesseX = - vitesseX;
-        vitesseY = - vitesseY;
+        vitesseX = - vitesseX +30.0f;
+        vitesseY = - vitesseY + 30.0f;
     }
 
     public void disparaitre(){

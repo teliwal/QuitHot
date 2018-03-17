@@ -11,7 +11,7 @@ import fr.quithot.com.quithot.domain.BalleFactory;
 
 public class GameThread extends Thread {
 
-    private final static int FRAMES = 30;
+    private final static int FRAMES =30;
     private final static int SKIP_TICKS = 1000 / FRAMES;
     private final GameSurfaceView view;
     private boolean running = false;

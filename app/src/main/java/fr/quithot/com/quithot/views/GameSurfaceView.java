@@ -6,6 +6,8 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Build;
 import android.os.Handler;
@@ -78,6 +80,38 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
         balleFactory = new BalleFactory(this.getContext(),perso, Difficulte.valueOf(diff));
         screenListener = new ScreenListener(this,this);
         setOnTouchListener(screenListener);
+
+        //listener for accelerometer, use anonymous class for simplicity
+        ((SensorManager)getContext().getSystemService(Context.SENSOR_SERVICE)).registerListener(
+                new SensorEventListener() {
+                    @Override
+                    public void onSensorChanged(SensorEvent event) {
+                        //set ball speed based on phone tilt (ignore Z axis)
+                        float x = event.values[1];
+                        float y = event.values[0];
+
+                        if ( x < 0.0f) {
+                            x -= 10.0f;
+                        } else {
+                            x += 10.0f;
+                        }
+
+                        if ( y < 0.0f) {
+                            y -= 10.0f;
+                        } else {
+                            y += 10.0f;
+                        }
+
+                        perso.setDirX(x);
+                        perso.setDirY(y);
+                        //timer event will redraw ball
+                    }
+                    @Override
+                    public void onAccuracyChanged(Sensor sensor, int accuracy) {} //ignore
+                },
+                ((SensorManager)getContext().getSystemService(Context.SENSOR_SERVICE))
+                        .getSensorList(Sensor.TYPE_ACCELEROMETER).get(0),
+                SensorManager.SENSOR_DELAY_NORMAL);
     }
 
 
@@ -206,7 +240,7 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
 
     @Override
     public void notifierTilt(TiltType type) {
-        switch (type) {
+        /*switch (type) {
             case BAS:
                 perso.setDirX(0.0f);
                 perso.setDirY(25.0f);
@@ -243,7 +277,7 @@ public class GameSurfaceView extends SurfaceView implements SurfaceHolder.Callba
                 perso.setDirX(0.0f);
                 perso.setDirY(0.0f);
                 break;
-        }
+        }*/
     }
 
     public BalleFactory getBalleFactory() {
